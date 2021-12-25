@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Button from "./Button";
 
 export default class Header extends Component {
   render() {
+    console.log(this.props);
     return (
       <div>
         <div className="ui container">
@@ -17,6 +17,7 @@ export default class Header extends Component {
             <div className="right menu">
               <p className="ui item">
                 <Link to="/cart">
+                  {this.props.cartItemNUmber}
                   <i className="fas fa-cart-plus"></i>
                 </Link>
               </p>

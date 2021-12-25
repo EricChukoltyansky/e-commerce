@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import api from "../api/products";
-import uniqid from "uniqid";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ProductsList from "./ProductsList";
 import HomePage from "./HomePage";
@@ -10,6 +9,7 @@ import Cart from "./Cart";
 export default function AppDisplay() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
+  const [cartNum, setCartNum] = useState(0);
 
   const retrieveProducts = async () => {
     const response = await api.get("/");
@@ -18,30 +18,23 @@ export default function AppDisplay() {
   };
 
   const addProductHandler = (productId) => {
-    console.log("productId add", productId)
     const selected = products.find((item) => {
       return +item.id === productId;
     });
 
     setCart((cart) => [...cart, selected]);
+    setCartNum(cartNum + 1);
   };
 
   const removeProductHandler = (productId) => {
     console.log("productId", productId);
-    // console.log("cart before filter", cart);
     setCart(
       cart.filter((product) => {
-        console.log("product from inside filter",product.id)
-        // console.log(typeof product.id)
-        console.log("productId",productId)
+        console.log("product from inside filter", product.id);
+        console.log("productId", productId);
         return product.id !== productId;
       })
     );
-    // console.log("cart after filter", cart);
-    // const removeItem = [...cart].splice(productId,1)
-    // console.log("new Product List", newProductList);
-    // setCart((cart) => [...cart, newProductList]);
-    // console.log("cart", cart);
   };
 
   useEffect(() => {
@@ -55,7 +48,7 @@ export default function AppDisplay() {
 
   return (
     <Router>
-      <Header />
+      <Header cartItemNUmber={cartNum} />
       <Switch>
         <Route exact path="/home" component={HomePage} />
         <Route

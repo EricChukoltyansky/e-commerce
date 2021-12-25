@@ -22,7 +22,9 @@ const ProductsList = (props) => {
     <div>
       <div>
         <div className="ui container">
-          <div className="ui cards" key={uniqid()}>{renderProductList}</div>
+          <div className="ui cards" key={uniqid()}>
+            {renderProductList}
+          </div>
         </div>
       </div>
     </div>

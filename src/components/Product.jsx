@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import Button from "./Button";
 
 function Products(props) {
-  const [item, setItem] = useState("");
-
   return (
     <div className="card">
       <p className="image">
