@@ -1,38 +1,59 @@
-import React, { Component } from "react";
-
+import React, { useEffect, useState } from "react";
+import api from "../api/products";
+import uniqid from "uniqid";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ProductsList from "./ProductsList";
-// import HomePage from "./HomePage";
 import HomePage from "./HomePage";
 import Header from "./Header";
+import Cart from "./Cart";
 
-export default class AppDisplay extends Component {
-  // homepageComponent = () => {
-  //   return (
-  //     <div>
-  //       <HomePage />
-  //     </div>
-  //   );
-  // };
+export default function AppDisplay() {
+  const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState([]);
 
-  // productComponent = () => {
-  //   return (
-  //     <div>
-  //       <ProductsList />
-  //     </div>
-  //   );
-  // };
+  const retrieveProducts = async () => {
+    const response = await api.get("/");
+    // console.log("response", response);
+    return response.data;
+  };
 
-  render() {
-    return (
-      <Router>
-        <Header />
-        <Switch>
-          <Route exact path="/home" component={HomePage} />
-          <Route exact path="/products" component={ProductsList} />
-          <Route exact path="/products" component={ProductsList} />
-        </Switch>
-      </Router>
-    );
-  }
+  const addProductHandler = (productId) => {
+    const selected = products.find((item) => {
+      return +item.id === productId;
+    });
+    // const cartCopy = cart;
+    // cartCopy.push(selected);
+    setCart((cart) => ([...cart, selected]),console.log(cart));
+    console.log(cart);
+  };
+
+  useEffect(() => {
+    const getAllPoducts = async () => {
+      const allProducts = await retrieveProducts();
+      if (allProducts) setProducts(allProducts);
+      // console.log("all products", allProducts);
+    };
+    getAllPoducts();
+  }, []);
+
+  return (
+    <Router>
+      <Header />
+      <Switch>
+        <Route exact path="/home" component={HomePage} />
+        <Route
+          exact
+          path="/products"
+          render={(props) => (
+            <ProductsList
+              {...props}
+              products={products}
+              addToCart={addProductHandler}
+            />
+          )}
+        />
+        <Route exact render={(props) => <Cart {...props} products={cart} />} />
+      </Switch>
+    </Router>
+  );
 }

@@ -1,19 +1,18 @@
 import React from "react";
-import Product from "./Product";
+import CartProduct from "./CartProduct";
 import uniqid from "uniqid";
 
-const ProductsList = (props) => {
-  // console.log(props.products);
-
+function Cart(props) {
+    console.log("props.product",props.products)
   const renderProductList = props.products.map((item, index) => {
+      console.log(item)
     return (
-      <Product
+      <CartProduct
         id={index}
-        text={item.title}
+        text={item.name}
         src={item.image}
         price={item.price}
         size={item.size}
-        addToCart={props.addToCart}
       />
     );
   });
@@ -22,11 +21,13 @@ const ProductsList = (props) => {
     <div>
       <div>
         <div className="ui container">
-          <div className="ui cards" key={uniqid()}>{renderProductList}</div>
+          <div className="ui cards" key={uniqid()}>
+            {renderProductList}
+          </div>
         </div>
       </div>
     </div>
   );
-};
+}
 
-export default ProductsList;
+export default Cart;

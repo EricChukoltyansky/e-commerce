@@ -1,0 +1,18 @@
+.landing-page {
+  background-image: url("https://images.pexels.com/photos/2622170/pexels-photo-2622170.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+  background-position: center;
+  background-size: cover;
+  height: 80vh;
+  color: #ffffff;
+  font-size: 36px;
+  text-align: center;
+}
+
+.landing-page p {
+  text-align: center;
+  padding-top: 50px;
+}
+
+.landing-page span {
+  font-size: 24px;
+}
