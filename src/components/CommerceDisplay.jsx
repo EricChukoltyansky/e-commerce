@@ -18,13 +18,30 @@ export default function AppDisplay() {
   };
 
   const addProductHandler = (productId) => {
+    console.log("productId add", productId)
     const selected = products.find((item) => {
       return +item.id === productId;
     });
-    // const cartCopy = cart;
-    // cartCopy.push(selected);
-    setCart((cart) => ([...cart, selected]),console.log(cart));
-    console.log(cart);
+
+    setCart((cart) => [...cart, selected]);
+  };
+
+  const removeProductHandler = (productId) => {
+    console.log("productId", productId);
+    // console.log("cart before filter", cart);
+    setCart(
+      cart.filter((product) => {
+        console.log("product from inside filter",product.id)
+        // console.log(typeof product.id)
+        console.log("productId",productId)
+        return product.id !== productId;
+      })
+    );
+    // console.log("cart after filter", cart);
+    // const removeItem = [...cart].splice(productId,1)
+    // console.log("new Product List", newProductList);
+    // setCart((cart) => [...cart, newProductList]);
+    // console.log("cart", cart);
   };
 
   useEffect(() => {
@@ -52,7 +69,16 @@ export default function AppDisplay() {
             />
           )}
         />
-        <Route exact render={(props) => <Cart {...props} products={cart} />} />
+        <Route
+          exact
+          render={(props) => (
+            <Cart
+              {...props}
+              products={cart}
+              removeFromCart={removeProductHandler}
+            />
+          )}
+        />
       </Switch>
     </Router>
   );

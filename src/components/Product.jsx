@@ -4,13 +4,6 @@ import Button from "./Button";
 function Products(props) {
   const [item, setItem] = useState("");
 
-  // function addToCart(productId) {
-  //   console.log("productId", productId);
-  //   setItem(productId);
-  //   console.log("this state", item);
-  //   props.addProductHandler(item);
-  // }
-
   return (
     <div className="card">
       <p className="image">
@@ -23,10 +16,6 @@ function Products(props) {
           <p>{props.size}</p>
         </div>
         <button onClick={() => props.addToCart(props.id)}>Add to Cart</button>
-
-        {/* <input id={this.props.id} onclick={(e) => function(e.target.id) /> */}
-
-        <Button text="Remove from cart" />
       </div>
     </div>
   );

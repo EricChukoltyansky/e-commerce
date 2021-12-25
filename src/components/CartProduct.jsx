@@ -1,7 +1,7 @@
 import React from "react";
-import Button from "./Button";
 
 function CartProduct(props) {
+  // console.log("props id", props.id);
   return (
     <div className="card">
       <p className="image">
@@ -14,9 +14,9 @@ function CartProduct(props) {
           <p>{props.size}</p>
         </div>
 
-        {/* <input id={this.props.id} onclick={(e) => function(e.target.id) /> */}
-
-        <Button text="Remove from cart" />
+        <button onClick={() => props.removeFromCart(props.id)}>
+          Remove from Cart
+        </button>
       </div>
     </div>
   );
