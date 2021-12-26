@@ -3,6 +3,8 @@ import CartProduct from "./CartProduct";
 import uniqid from "uniqid";
 
 function Cart(props) {
+
+  
   const renderProductList = props.products.map((item) => {
     return (
       <CartProduct

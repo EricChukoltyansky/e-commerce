@@ -10,6 +10,8 @@ export default function AppDisplay() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [cartNum, setCartNum] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
   const retrieveProducts = async () => {
     const response = await api.get("/");
@@ -37,6 +39,21 @@ export default function AppDisplay() {
     );
   };
 
+  const searchHandler = (searchTerm) => {
+    setSearchTerm(searchTerm);
+    if (searchTerm !== "") {
+      const newProductsList = products.filter((item) => {
+        return Object.values(item)
+          .join("")
+          .toLocaleLowerCase()
+          .includes(searchTerm.toLocaleLowerCase());
+      });
+      setSearchResults(newProductsList);
+    } else {
+      setSearchResults(products);
+    }
+  };
+
   useEffect(() => {
     const getAllPoducts = async () => {
       const allProducts = await retrieveProducts();
@@ -57,8 +74,10 @@ export default function AppDisplay() {
           render={(props) => (
             <ProductsList
               {...props}
-              products={products}
+              products={searchTerm.length < 1 ? products : searchResults}
               addToCart={addProductHandler}
+              term={searchTerm}
+              searchKeyWord={searchHandler}
             />
           )}
         />
